@@ -5,12 +5,52 @@ import Section from './feedback/Section';
 import Notification from './feedback/Notification';
 
 
-export class App extends Component {
+class App extends Component {
+        
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0
+  good: 0,
+  neutral: 0,
+  bad: 0
+  };
+
+
+
+  handlClickButton =(e)=>{
+    
+    let buttonName = e.target.name;
+        
+      if(buttonName){
+        this.setState(prevState => 
+          
+        ({ [buttonName]: prevState[buttonName] +1})
+        
+      )};
+  };
+
+  countTotalFeedback = () => {
+
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
+  };
+
+
+  countPositiveFeedbackPercentage =() =>{
+
+    const totalFeedback = this.countTotalFeedback();
+    const {good} = this.state;
+    let result = 0;
+
+    if(totalFeedback >0) {
+
+       result = Math.ceil((good/totalFeedback)*100);
+    }
+    
+    return `${result}%`;
+    
   }
+
+  
+
   render() {
     
     const {good, neutral, bad} = this.state; 
@@ -18,7 +58,9 @@ export class App extends Component {
     const countTotalFeedback = this.countTotalFeedback();
     const handlClickButton = this.handlClickButton;
     const feedbackBtn = Object.keys(this.state);
-  
+    
+    
+    
     return (
       <div>
         <div>
@@ -26,7 +68,7 @@ export class App extends Component {
           {<FeedbackOptions nameBtn = {feedbackBtn} handlClickButton = {handlClickButton}></FeedbackOptions>}
           </Section>
         </div>
-  
+
         <div>
           <Section title="Statistics" >
             {countTotalFeedback > 0 ? (
@@ -38,14 +80,13 @@ export class App extends Component {
               positivePercentage={countPositiveFeedbackPercentage}
             />
             ) :
-            <Notification message={"There is no feedback"}/>
-            }
+            <Notification message={"There is no feedback"}/>}
           </Section>
         </div>
       </div>
     )
   }
-  
-  };
 
+};
 
+export default App;
