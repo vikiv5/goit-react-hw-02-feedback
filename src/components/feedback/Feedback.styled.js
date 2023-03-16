@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ButtonDiv = styled.ul`
+export const BoxBtn = styled.ul`
     list-style: none;
     width: 500px;
     margin: 0;

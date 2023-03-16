@@ -1,24 +1,28 @@
-import PropTypes from "prop-types"
-import { ButtonDiv , Button } from "./Feedback.styled";
+import PropTypes from 'prop-types';
+import { BoxBtn, Button } from './Feedback.styled'
 
-
-export const FeedbackOptions = ({options , handleClickBtn}) =>{
-    return (
-        <ButtonDiv>
-            {options.map(option=> (
-                <li key = {option}>
-                    <Button name ={option}
-                    onClick ={handleClickBtn}> 
-                    </Button>
-                </li>
-
-            ))}
-        </ButtonDiv>
-    )
-}
-FeedbackOptions.PropTypes = {
-    handleClickBtn:PropTypes.func.isRequired,
-    options:PropTypes.string.isRequired,
+  export const FeedbackOptions = ({nameBtn, handlClickButton}) => {
+    
+   return (
+    <BoxBtn>
+        
+        {nameBtn.map(nameBtn=> (
+            
+            <li key={nameBtn}>
+            <Button name={nameBtn}
+            onClick={handlClickButton}>{nameBtn[0].toUpperCase()+nameBtn.slice(1)}</Button>
+            </li>))
+        }
+       
+    </BoxBtn>
+   );
 };
+
+FeedbackOptions.propTypes ={
+    handlClickButton: PropTypes.func.isRequired,
+    nameBtn: PropTypes.arrayOf(PropTypes.string).isRequired,
+               
+};
+
 
 export default FeedbackOptions;
